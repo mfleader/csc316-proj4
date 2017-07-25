@@ -1,7 +1,8 @@
 package main;
 
 /**
-* This class models the state and behavior of a Linked List Stack
+* This class models the state and behavior of a Linked List of
+* Hash Entries
 * @author Matthew F. Leader
 */
 public class LinkedList<K, V> {
@@ -10,6 +11,7 @@ public class LinkedList<K, V> {
     private HashNode front;
     /** size of the list */
     private int size;
+    private int numProbes;
 
     /**
      * Construct a Linked List
@@ -17,6 +19,7 @@ public class LinkedList<K, V> {
     public LinkedList() {
     	front = null;
         size = 0;
+        numProbes = 0;
     }
 
     /**
@@ -52,32 +55,39 @@ public class LinkedList<K, V> {
 
     /**
      * Find a value on the list
-     *  @param value
+     * @param key
      *  				the value to look for on the list
-     *  @return if the String is on the list, then return the index,
-     *  otherwise return -1
-     *  */
-    public int find(V value) {
-    	int index = -1;
+     * @return if the value is on the list, then return the value,
+     * otherwise return null 
+     */
+    public V find(K key) {    	
     	for (HashNode k = front; k != null; k = k.next) {
-    		index++;
-    		if (k.value.equals(value)) {
-    			return index;
+    		numProbes++;
+    		if (k.key.equals(key)) {
+    			return k.value;
     		}
     	}
-    	return -1;
+    	return null;
+    }
+    
+    public void deProbe() {
+    	numProbes = 0;
+    }
+    
+    public int getProbed() {
+    	return numProbes;
     }
     
     /**
      * Remove a Node with the given value, if it exists
-     * @param value
+     * @param key
      * 			the value to remove from the list
      * @return the Node removed from the list
      */
-    public V remove(V value) {
+    public V remove(K key) {
     	HashNode current = front;
     	HashNode previous = null;
-    	while (current != null && !current.value.equals(value)) {
+    	while (current != null && !current.key.equals(key)) {
     		previous = current;
     		current = current.next;
     	}
