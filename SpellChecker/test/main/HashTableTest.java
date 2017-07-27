@@ -12,7 +12,7 @@ import java.util.Scanner;
 import org.junit.Test;
 
 /**
- * @author Matthew
+ * @author Matthew F. Leader
  *
  */
 public class HashTableTest {

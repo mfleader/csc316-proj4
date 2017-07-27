@@ -5,18 +5,19 @@ package main;
 * Hash Entries
 * @author Matthew F. Leader
 */
-public class LinkedList<K, V> {
+public class LinkedHashNodeList<K, V> {
 
 	/** the first element in the collection */
     private HashNode front;
     /** size of the list */
     private int size;
+    /** the number of word comparisons made in this bucket */
     private int numProbes;
 
     /**
      * Construct a Linked List
      */
-    public LinkedList() {
+    public LinkedHashNodeList() {
     	front = null;
         size = 0;
         numProbes = 0;
@@ -41,6 +42,8 @@ public class LinkedList<K, V> {
     /**
      * Add an item to the front, or if it is already on the list, then move
      * element the containing value equal to the parameter to the front.
+     * @param key
+     * 				the key associated with hash node to add
      * @param value
      *              the value to add to the list
      */
@@ -70,10 +73,17 @@ public class LinkedList<K, V> {
     	return null;
     }
     
+    /**
+     * Resets number of probes
+     */
     public void deProbe() {
     	numProbes = 0;
     }
     
+    /**
+     * 
+     * @return number of probes in this bucket
+     */
     public int getProbed() {
     	return numProbes;
     }
@@ -178,10 +188,18 @@ public class LinkedList<K, V> {
                 this(key, value, null);
             }
             
+            /**
+             * 
+             * @return this HashNode's value
+             */
             public V value() {
             	return value;
             }
             
+            /**
+             * 
+             * @return this HashNode's key
+             */
             public K key() {
             	return key;
             }
